@@ -1,0 +1,30 @@
+[color]
+	ui = auto
+[core]
+	pager = less -r
+	excludesfile = /Users/daisukefukuda/.gitignore_global
+[user]
+	name = Daisuke Fukuda
+	email = XXXXXXXX
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/daisukefukuda/.stCommitMsg
+[merge]
+	ff = false
+[pull]
+	ff = only
+	rebase = true
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[credential]
+	helper = osxkeychain
+[alias]
+	showpr = "!f() { git log --merges --oneline --reverse --ancestry-path $1...master | grep 'Merge pull request #' | head -n 1; }; f"

@@ -61,9 +61,9 @@ zstyle ':vcs_info:*' actionformats \
 	    '%F{5}[%F{2}%b%F{7}:%F{6}%r%F{3}|%F{1}%a%F{5}]%f'
 zstyle ':vcs_info:*' formats \
 	    '%F{5}[%F{2}%b%F{7}:%F{6}%r%F{5}]%f'
-  
+
 zstyle ':vcs_info:*' enable git
-  
+
 vcs_info_wrapper() {
     vcs_info
     if [ -n "$vcs_info_msg_0_" ]; then
@@ -73,7 +73,7 @@ vcs_info_wrapper() {
 RPROMPT=$'$(vcs_info_wrapper)'
 
 
-#### git補完 
+#### git補完
 fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
 
 autoload -U compinit
@@ -130,13 +130,17 @@ esac
 
 
 #from bash_profile
-export PATH="/opt/local/lib/mysql5/bin/:/opt/local/bin:/opt/local/lib/:/opt/local/apache2/bin:/usr/local/mysql/bin:/usr/local/bin:/usr/local/sbing:/usr/local/share/git-core/contrib/diff-highlight:$PATH"
-export PATH="/Users/d-fukuda/Library/Android/sdk/platform-tools/:/Users/d-fukuda/Library/Android/sdk/tools/:$PATH"
+export PATH="/usr/local/Cellar/git/2.12.0:/opt/local/bin:/opt/local/lib/:/usr/local/bin:/usr/local/sbing:/usr/local/share/git-core/contrib/diff-highlight:$PATH"
+export PATH="/Applications/Android/platform-tools/:/Applications/Android/tools/:$PATH"
 export PATH="/opt/local/bin/:$PATH"
 export PATH="/opt/local/apache2/bin/:$PATH"
 export PATH="/opt/local/lib/php53/:$PATH"
+export PATH="/Users/daisukefukuda/Library/Python/3.6/bin:$PATH"
 
-export ANDROID_HOME="/Users/d-fukuda/Library/Android/sdk/"
+export GOPATH=$HOME/.go
+export PATH=$PATH:$GOPATH/bin
+
+export ANDROID_HOME="/Users/daisukefukuda/Library/Android/sdk/"
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 
 alias mysql_va='mysql -u root -h "192.168.33.10"'
@@ -148,13 +152,13 @@ alias apache='sudo /opt/local/apache2/bin/apachectl'
 alias his='history'
 alias hisgrep='his 1000 | grep'
 alias redis='redis-server /opt/local/etc/redis.conf &'
-alias nss='ssh -A nss.colopl.jp'
 #vim
 export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
 alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 #alias ssh="~/bin/safe_ssh $*"
-alias ssh="~/bin/ssh-host-color.sh $*"
+
+#alias ssh="~/bin/ssh-host-color.sh $*"
 
 #git
 alias gco="git checkout"
@@ -166,7 +170,8 @@ alias gdi="git diff -b"
 alias gbr="git branch"
 alias gad="git add"
 alias glg="git log"
-
+alias glo="git log --date=short --pretty='format:%C(yellow)%h %C(green)%cd %C(blue)%an%C(red)%d %C(reset)%s'"
+alias gti='git'
 alias va="vagrant"
 alias ll="ls -al"
 #source ~/bash/git-prompt.sh
@@ -184,7 +189,7 @@ export JLESSCHARSET=japanese-ujis
 
 
 function mkcd(){mkdir -p $1 && cd $1}
-source /Users/d-fukuda/zsh_plugin/zaw/zaw.zsh
+source /Users/daisukefukuda/zsh_plugin/zaw/zaw.zsh
 
 bindkey '^h' zaw-history
 
@@ -200,8 +205,38 @@ cdpath=(/Library/WebServer)
 HELPDIR=/usr/local/share/zsh/help
 
 
-      
+
+alias halllist="cd /Library/WebServer/simplesougi-wordpress/src/wp-content/themes/mpt-wp-kakuyasusougi/functions/kakuyasusougi"
+
+
 alias j="autojump"
   [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
 #test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+#
+
+
+
+
+
+
+
+###### zplug
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
+
+zplug "zsh-users/zsh-completions"
+
+zplug "zsh-users/zsh-syntax-highlighting", defer:3
+
+zplug "b4b4r07/enhancd", use:init.sh
+
+zplug load
+
+
+export PATH="/usr/local/opt/php@7.1/bin:$PATH"
+export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
+
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/terraform terraform

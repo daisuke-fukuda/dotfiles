@@ -173,6 +173,7 @@ alias glg="git log"
 alias glo="git log --date=short --pretty='format:%C(yellow)%h %C(green)%cd %C(blue)%an%C(red)%d %C(reset)%s'"
 alias gti='git'
 alias va="vagrant"
+alias gcl="git branch --merged|egrep -v '\*|develop|main|master'|xargs git branch -d"
 alias ll="ls -al"
 #source ~/bash/git-prompt.sh
 alias mysqldump=/usr/local/mysql/bin/mysqldump
@@ -189,7 +190,7 @@ export JLESSCHARSET=japanese-ujis
 
 
 function mkcd(){mkdir -p $1 && cd $1}
-source /Users/daisukefukuda/zsh_plugin/zaw/zaw.zsh
+#source /Users/daisukefukuda/zsh_plugin/zaw/zaw.zsh
 
 bindkey '^h' zaw-history
 
@@ -240,3 +241,16 @@ export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Applications/google-cloud-sdk/path.zsh.inc' ]; then . '/Applications/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Applications/google-cloud-sdk/completion.zsh.inc' ]; then . '/Applications/google-cloud-sdk/completion.zsh.inc'; fi
+
+
+ssh-add --apple-load-keychain
+
+export PATH="/usr/local/opt/php@7.4/bin:$PATH"
+export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
